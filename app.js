@@ -6,7 +6,7 @@ require("./models/connection")
 var usersRouter = require('./routes/users');
 const swaggerUI=require("swagger-ui-express")
 var app = express();
-
+app.use(require("cors")())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
