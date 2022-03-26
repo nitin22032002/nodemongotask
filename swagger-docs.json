@@ -10,7 +10,7 @@
       }
     }
     ,
-    "host": " nitinguptanodemongo.herokuapp.com",
+    "host": "nitinguptanodemongo.herokuapp.com",
     "tags": [
       {
         "name": "Users",
