@@ -1,0 +1,292 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0", 
+      "title": "Basic Node-Mongo Task",
+      "description": "Task",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    }
+    ,
+    "host": " nitinguptanodemongo.herokuapp.com",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "API for users"
+      }
+    ],
+    "schemes": ["http","https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json","text/plain"],
+    "paths": {
+      "/get_users": {
+        "get": {
+          "tags": ["Users"],
+          "summary": "Api To Get all Users",
+          "parameters":[{
+              "name":"auth-token",
+              "in":"header",
+              "description": "token",
+              "example":{
+               "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NDgzMTU2ODV9.ROUmob1CoVSvSbOL6CZL3PtLlJXbXYC6TlAL3FfL2Ak"
+                }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Array Of Tasks",
+              "schema":{
+                "type":"array",
+                "items":{
+                    "$ref":"#/definitions/users"   
+                },
+                "example":{
+                    "users": [
+                      {
+                        "_id": "623f4dda60559af082efbd04",
+                        "name": "aest",
+                        "age": 18,
+                        "__v": 0
+                      },
+                      {
+                        "_id": "623f4deb60559af082efbd07",
+                        "name": "aest",
+                        "age": 21,
+                        "__v": 0
+                      },
+                      {
+                        "_id": "623f4dce60559af082efbd01",
+                        "name": "test",
+                        "age": 18,
+                        "__v": 0
+                      }
+                    ]
+                  }
+              }
+              
+            },
+            "401":{
+              "description": "Invalid User....."
+            },
+              "500":{
+                "description": "Server Error...."
+              }
+          }
+        }
+      },
+      "/add_user": {
+        "post": {
+          "tags": ["Users"],
+          "summary": "Add New User",
+          "parameters":[{
+              "name":"auth-token",
+              "in":"header",
+              "description": "token",
+              "example":{
+                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NDgzMTU2ODV9.ROUmob1CoVSvSbOL6CZL3PtLlJXbXYC6TlAL3FfL2Ak"
+                 }
+            },{
+              "name":"user",
+              "in":"body",
+              "description":"New User Data",
+              
+              "schema":{
+                "items":{
+                    "$ref":"#/definitions/users"   
+                },
+                "example":{
+                    "name": "test",
+                    "age": "20"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "new User created",
+              "schema":{
+                "example":{
+                    "msg":"User Added..",
+                    "status":true
+                }
+              }
+              
+            },
+            "401":{
+              "description": "Invalid User....."
+            },
+              "500":{
+                "description": "Server Error...."
+              }
+          }
+        }
+      },
+      "/delete_user/{id}": {
+        "delete": {
+          "tags": ["Users"],
+          "summary": "Delete User",
+          "parameters":[{
+              "name":"auth-token",
+              "in":"header",
+              "description": "token",
+              "example":{
+                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NDgzMTU2ODV9.ROUmob1CoVSvSbOL6CZL3PtLlJXbXYC6TlAL3FfL2Ak"
+                 }
+            },{
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of user",
+              "type": "string",
+              "example":{"id":"623f4d9360559af082efbcfe"}
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User Deleted"
+              ,
+              "example":{
+                  "msg":"User Deleted...",
+                  "status":true
+              }
+              
+            },
+            "401":{
+              "description": "Invalid User....."
+            },
+              "500":{
+                "description": "Server Error...."
+              }
+          }
+        }
+      },
+      "/update_user/{id}": {
+        "put": {
+          "tags": ["Users"],
+          "summary": "Update User",
+          "parameters":[{
+              "name":"auth-token",
+              "in":"header",
+              "description": "token",
+              "example":{
+                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NDgzMTU2ODV9.ROUmob1CoVSvSbOL6CZL3PtLlJXbXYC6TlAL3FfL2Ak"
+                 }
+            },{
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of User",
+              "type": "string",
+              "example":{"id":"623f4d9360559af082efbcfe"}
+            },
+            {
+              "name":"user",
+              "in":"body",
+              "description":"Update User Data",
+              "schema":{
+                "example":{
+                    "name": "testother",
+                    "age": 21
+                },
+                "items":{
+                    "$ref":"#/definitions/users"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User Updated"
+              ,
+              "example":{
+                  "msg":"User Updated..",
+                  "status":true
+              }
+              
+            },
+            "401":{
+              "description": "Invalid User....."
+            },
+              "500":{
+                "description": "Server Error...."
+              }
+          }
+        }
+      },
+      "/get_cred": {
+        "post": {
+          "tags": ["Users"],
+          "summary": "get Token",
+          "parameters":[{
+              "name":"Host Detail",
+              "in":"body",
+              "description":"User Cred",
+              
+              "schema":{
+                "example":{
+                    "username": "test",
+                    "password": "12345"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Token",
+              "schema":{
+                "example":{
+                    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NDgzMTU2ODV9.ROUmob1CoVSvSbOL6CZL3PtLlJXbXYC6TlAL3FfL2Ak"
+                }
+                ,
+                "items":{
+                    "$ref":"#/definitions/token"
+                }
+              }
+              
+            },
+              "500":{
+                "description": "Server Error...."
+              }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "token":{
+        "required": ["token"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "uniqueItems": true
+          }
+        },
+        "example":{
+          "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NDgzMTU2ODV9.ROUmob1CoVSvSbOL6CZL3PtLlJXbXYC6TlAL3FfL2Ak"
+        }
+      },
+      
+      "users": {
+        "required": ["name", "_id", "age"],
+        "properties": {
+          "_id": {
+            "type": "integer",
+            "uniqueItems": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "age":{
+            "type":"number"
+          }
+          
+      },
+      "example":{
+        "_id": "623f4dda60559af082efbd04",
+        "name": "aest",
+        "age": 18
+      }
+    }
+    }
+  }
