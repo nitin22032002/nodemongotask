@@ -1,0 +1,1 @@
+module.exports={keys:"tem123",uri:"mongodb+srv://nitin:123nodemongo456@cluster0.s28lb.mongodb.net/UserDb?retryWrites=true&w=majority"}
